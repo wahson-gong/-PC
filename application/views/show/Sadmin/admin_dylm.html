@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>授权管理</title>
+    <link rel="stylesheet" href="/public/xz/css/reset.css">
+    <link rel="stylesheet" href="/public/xz/css/town.css">
+    <link rel="stylesheet" href="/public/xz/css/font-awesome.css">
+    <link rel="stylesheet" href="/public/xz/css/public.css">
+    <script src="/public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <style>
+            .user-li {
+                display: none;
+            }
+        </style>
+        <div class="rightside">
+            <div class="ly-h2" style="display: none">栏目管理 <a class="ly-a-add" href="/index.php?p=show&c=admin&a=addlm">添加栏目</a></div>
+            <table>
+                <tr>
+                    <td>栏目名称</td>
+                    <td>模板</td>
+                    <td>是否启用</td>
+                    <td>操作</td>
+                </tr>
+                <?php if($lanmuDatas):?>
+                <?php foreach($lanmuDatas as $lanmuData):?>
+                <tr>
+                    <td><?=$lanmuData['biaoming']?></td>
+                    <td><?=$lanmuData['moban']?></td>
+                    <td><?=$lanmuData['qiyong']==1?'启用':'未启用'?></td>
+                    <td>
+                        <?php if($lanmuData['biaoming']!='问政' && $lanmuData['biaoming']!='名片'):?>
+                        <a href="/index.php?p=show&c=admin&a=addlm&id=<?=$lanmuData['id']?>" class="fa fa-edit" id="<?=$lanmuData['id']?>"></a>
+                        <?php endif;?>
+                        <a href="/index.php?p=show&c=admin&a=dellm&id=<?=$lanmuData['id']?>" class="fa fa-trash-o fa-lg" style="display: none"></a></td>
+                </tr>
+                <?php endforeach;?>
+                <?php endif;?>
+            </table>
+            <!--<ul class="ly-list-lang">-->
+                <!--<li>-->
+                    <!--<span>栏目名称</span>-->
+                    <!--<span>模板</span>-->
+                    <!--<span>操作</span>-->
+                <!--</li>-->
+                <!--<?php if($lanmuDatas):?>-->
+                <!--<?php foreach($lanmuDatas as $lanmuData):?>-->
+                <!--<li>-->
+                    <!--<span><?=$lanmuData['biaoming']?></span>-->
+                    <!--<span><?=$lanmuData['moban']?></span>-->
+                    <!--<span><a href="#" class="fa fa-edit" id="<?=$lanmuData['id']?>"></a><a href="#" class="fa fa-trash-o fa-lg"></a></span>-->
+                <!--</li>-->
+                <!--<?php endforeach;?>-->
+                <!--<?php endif;?>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a> | <a>联系我们</a> | &nbsp; Copyright © 2015-2018 eBeryl. All Rights Reserved. | 蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="/public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $('.p_manage').click(function () {
+        $('.hidediv').slideToggle();
+    })
+
+    $(".user-li").eq(0).show();
+    $('.user_accredit li').click(function () {
+        $('.user_accredit li').removeClass('accrediton');
+        $(this).addClass('accrediton')
+        $(".user-li").eq($(this).index()).show().siblings().hide();
+    })
+
+    $(".ly-ch").click(function () {
+        if ($(this).hasClass("ly-cation")) {
+            $(this).removeClass("ly-cation");
+        } else {
+            $(this).addClass("ly-cation");
+        }
+    })
+
+    $(".ly-all").click(function () {
+        if ($(this).hasClass("ly-cation")) {
+            $(this).removeClass("ly-cation");
+            $(".ly-ch").removeClass("ly-cation")
+        } else {
+            $(this).addClass("ly-cation");
+            $(".ly-ch").addClass("ly-cation")
+        }
+    })
+</script>
+</body>
+</html>

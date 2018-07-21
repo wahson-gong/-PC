@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="/public/xz/css/reset.css">
+    <link rel="stylesheet" href="/public/xz/css/town.css">
+    <link rel="stylesheet" href="/public/xz/css/font-awesome.css">
+    <link rel="stylesheet" href="/public/xz/css/public.css">
+    <link rel="stylesheet" href="/public/xz/css/lingdao.css">
+    <script src="/public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<header>
+    <div class="navbar">
+        <a><img src="/public/xz/img/logo.png"></a>
+        <div>
+            <img class="userlogo tolisde" src="/public/xz/img/headimg.png">
+            <span class="username tolisde">青山七海</span>
+            <img src="/public/xz/img/iconv.png" class="tolisde" style="width: 20px;margin-right: 5px;">
+            <i class="fa fa-angle-down tolisde"></i>
+            <i class="fa fa-envelope-o tolisde"></i>
+            <div class="down_show">
+                <a>我的账户</a>
+                <a>我的发布</a>
+                <a>栏目管理</a>
+                <a>我的消息</a>
+                <a>授权管理</a>
+            </div>
+        </div>
+        <ul>
+            <li><a>首页</a></li>
+            <li><a>发布信息 </a></li>
+        </ul>
+    </div>
+</header>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <style>
+            .user-li {
+                display: none;
+            }
+        </style>
+        <div class="rightside">
+            <div class="ly-h2">用户管理</div>
+
+            <table class="ly-table">
+                <tr>
+                    <td width="10%" align="center">序号</td>
+                    <td width="60%">用户名</td>
+                    <td width="30%" align="center">操作</td>
+                </tr>
+                <tr>
+                    <td align="center">1</td>
+                    <td>马市铺</td>
+                    <td><span>已启用</span><a href="javascript:;">禁用</a></td>
+                </tr>
+                <tr>
+                    <td align="center">1</td>
+                    <td>马市铺</td>
+                    <td><a href="javascript:;">启用</a><span href="javascript:;">已禁用</span></td>
+                </tr>
+                <tr>
+                    <td align="center">1</td>
+                    <td>马市铺</td>
+                    <td><span>已启用</span><a href="javascript:;">禁用</a></td>
+                </tr>
+                <tr>
+                    <td align="center">1</td>
+                    <td>马市铺</td>
+                    <td><a href="javascript:;">启用</a><span href="javascript:;">已禁用</span></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a> | <a>联系我们</a> | &nbsp; Copyright © 2015-2018 eBeryl. All Rights Reserved. | 蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="/public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $('.p_manage').click(function () {
+        $('.hidediv').slideToggle();
+    })
+
+    $(".user-li").eq(0).show();
+    $('.user_accredit li').click(function () {
+        $('.user_accredit li').removeClass('accrediton');
+        $(this).addClass('accrediton')
+        $(".user-li").eq($(this).index()).show().siblings().hide();
+    })
+
+    $(".ly-ch").click(function () {
+        if ($(this).hasClass("ly-cation")) {
+            $(this).removeClass("ly-cation");
+        } else {
+            $(this).addClass("ly-cation");
+        }
+    })
+
+    $(".ly-all").click(function () {
+        if ($(this).hasClass("ly-cation")) {
+            $(this).removeClass("ly-cation");
+            $(".ly-ch").removeClass("ly-cation")
+        } else {
+            $(this).addClass("ly-cation");
+            $(".ly-ch").addClass("ly-cation")
+        }
+    })
+</script>
+</body>
+</html>

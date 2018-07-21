@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-我的发布</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/jqui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/date.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <form method="GET" action="index.php?p=show&c=admin&a=fabu">
+            <div class="rightside">
+
+                <div class="ly-h2">我的发布 <span>共发布 <b><?=$num?></b> 条</span>
+                    <div class="ly-int">
+                        <input name="tj" type="text" placeholder="请输入标题/稿要" id="tj" value="<?=isset($_GET['tj'])?$_GET['tj']:'' ?>">
+                        <input type="button" id="search" value="" class="ly-submit"/>
+                    </div>
+                </div>
+
+
+
+                <div class="ly-line">
+                    <?php if($lanmus):?>
+                    <select class="ly-select" id="fenlei">
+                        <option value="" <?=!isset($_GET['fenlei'])?'selected':''  ?>>全部分类</option>
+                        <?php foreach($lanmus as $v):?>
+                        <?php if($v['biaoming'] != '问政' && $v['biaoming'] != '名片'):?>
+                        <option value="<?=$v['fenlei']?>" <?=isset($_GET['fenlei'])&&$_GET['fenlei']==$v['fenlei']?'selected':''  ?>><?=$v['fenlei']?></option>
+                        <?php endif;?>
+                        <?php endforeach;?>
+                    </select>
+                    <?php endif;?>
+                    <select class="ly-select" id="zhuangtai">
+                        <option value="" <?=!isset($_GET['zhuangtai'])?'selected':''  ?>>全部状态</option>
+                        <option value="审核中" <?=isset($_GET['zhuangtai'])&&$_GET['zhuangtai']=='审核中'?'selected':''  ?>>审核中</option>
+                        <option value="通过" <?=isset($_GET['zhuangtai'])&&$_GET['zhuangtai']=='通过'?'selected':''  ?>>通过</option>
+                        <option value="未通过" <?=isset($_GET['zhuangtai'])&&$_GET['zhuangtai']=='未通过'?'selected':''  ?>>未通过</option>
+                    </select>
+                    <input type="text" class="ly-input-date" value="2018-01-11—2018-1-17"/>
+                </div>
+
+                <table>
+
+                    <?php foreach($result as $v): ?>
+                    <tr>
+                        <td width="50" align="center"><span class="ly-check ly-ch"></span></td>
+                        <td width="50" align="center"><?=$v['id']?></td>
+                        <td width="300" align="left"><p
+                                style="line-height: 20px;padding: 15px 0; box-sizing: border-box"><?=$v['biaoti']?></p>
+                        </td>
+                        <td width="100" align="center"><span class="ly-state ly-state-1"><?=$v['zhuangtai']?></span>
+                        </td>
+                        <td width="100" align="center"> <?=$v['fenlei']?></td>
+                        <td width="200" align="center">2018-01-12 12:35:26</td>
+                        <td width="150" align="center">
+                            <!--<a href="?p=show&c=admin&a=chakan&id=<?=$v['id']?>">查看</a>-->
+                            <a href="?p=show&c=admin&a=xiugai&id=<?=$v['id']?>" class="fa fa-edit"></a>
+                            <a href="?p=show&c=admin&a=shanchu&id=<?=$v['id']?>" class="fa fa-trash-o fa-lg"></a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+
+                <div class="ly-foot-up">
+                    <div class="ly-foot-left">
+                        <span class="ly-check ly-all"> 全选</span>
+                        <span class="ly-delete"><i class="fa fa-trash-o fa-lg"></i>删除</span>
+                    </div>
+                    <div class="ly-list-page">
+                        <li><a href="index.php?p=show&c=admin&a=fabu&page=<?=$min?><?=$url?>">首页</a></li>
+                        <?php for($i=$min;$i<=$max;$i++):  ?>
+                        <li><a href="index.php?p=show&c=admin&a=fabu&page=<?=$i?><?=$url?>"><?=$i?></a></li>
+                        <?php endfor;  ?>
+                        <li><a href="index.php?p=show&c=admin&a=fabu&page=<?=$max?><?=$url?>">尾页</a></li>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a> | <a>联系我们</a> | &nbsp; Copyright © 2015-2018 eBeryl. All Rights Reserved. | 蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $('#1').click(function () {
+        $('form').submit()
+    })
+</script>
+<script type="text/javascript">
+    $('.p_manage').click(function () {
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function () {
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function () {
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function () {
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function () {
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function () {
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function () {
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function () {
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function () {
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+</script>
+<!--页面跳转-->
+<script type="text/javascript">
+    function isInteger(obj) {
+        return parseInt(obj, 10) === obj
+    }
+
+    $("#tips").click(function () {
+        //>>获取关键词
+        var tj = $("#tj").val();
+        //获取输入的页码
+        var page = $("#page").val();
+        window.location.href = "?p=show&c=admin&a=fabu&page=" + page + "&tj=" + tj;
+    })
+</script>
+<!--搜索-->
+<script>
+    $("#search").click(function () {
+        var tj = $("#tj").val()
+        var fenlei = $("#fenlei").val()
+        var zhuangtai = $("#zhuangtai").val()
+        var str = "?p=show&c=admin&a=fabu"
+        console.log(tj)
+        console.log(fenlei)
+        console.log(zhuangtai)
+        if (tj!=''){
+            str += "&tj="+tj;
+        }
+        if (fenlei!=''){
+            str += "&fenlei="+fenlei
+        }
+        if (zhuangtai!=''){
+            str += "&zhuangtai="+zhuangtai
+        }
+        window.location.href = str
+    })
+</script>
+</body>
+</html>

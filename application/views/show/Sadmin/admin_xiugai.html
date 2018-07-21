@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-发布</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <link href="public/xz/ueditor/themes/default/css/ueditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="public/xz/ueditor/third-party/jquery-1.10.2.js"></script>
+    <script type="text/javascript" charset="utf-8" src="application/controllers/ueditor_p/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="application/controllers/ueditor_p/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="application/controllers/ueditor_p/ueditor.parse.js"></script>
+    <script type="text/javascript" charset="utf-8" src="application/controllers/ueditor_p/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="public/js/webuploader.js"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <form method="post" action="index.php?p=show&c=admin&a=xiugai2&id=<?=$result['id']?>">
+        <div class="ueedi">
+            <div class="edi_left">
+                <div id="tj">
+                    <input name="biaoti" placeholder="文章标题" class="article_title" value="<?=$result['biaoti']?>" style="width: 83%"/>
+                    <input name="fenlei" type="hidden" id="fenlei">
+
+                    <div class="article_type">
+                        <span>请选择</span><i class="fa fa-caret-down"></i>
+                        <div>
+
+                            <?php foreach($lanmu as $v): ?>
+                            <p id="lanmu"><?=$v['u1']?></p>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <textarea name="jianjie" id="myEditor" style="width:860px;height:520px;margin-top: 15px;"><?=$result['jianjie']?></textarea>
+                <script>
+                    var ue = UE.getEditor('myEditor',{
+                        initialFrameHeight:520,
+                        scaleEnabled:true
+                    });
+                    ue.addListener("selectionchange",function(){
+                        var editor=UE.getEditor('myEditor');
+                        var arr =(UE.getEditor('myEditor').getContentTxt());
+                        console.log(arr)
+                        $('.yulan_3').html(arr)
+                    })
+                </script>
+
+                <div class="name_b">
+						<span>
+							<img id="wx" src="public/xz/img/wx1.png" date-src="public/xz/img/wx2.png">
+							<img id="qe" src="public/xz/img/bt2.png" date-src="public/xz/img/bt2.png">
+							<img src="public/xz/img/wb2.png" date-src="public/xz/img/wb2.png">
+							<img src="public/xz/img/tt2.png" date-src="public/xz/img/tt2.png">
+						</span>
+                </div>
+            </div>
+            <input type="hidden" value="" id="media_id" name="media_id">
+            <div class="edi_right">
+                <div class="part_1">
+                    <span class="parton">图文列表</span>
+                    <span class="yulan">预览详情</span>
+                    <i class="under_l"></i>
+                </div>
+                <div class="part_2">
+                    <p><i class="fa fa-square-o"></i>此文章封面显示在正文内</p>
+                    <div class="img_box">
+                        <div><img id="tupian" src="111" ></div>
+                    </div>
+                    <div class="bt_box">
+							<span id="my_uploader">
+								<i class="fa fa-plus"></i>添加图片
+							</span>
+                        <span>
+								<i class="fa fa-trash"></i>删除
+							</span>
+                    </div>
+                </div>
+                <div class="yulanbox">
+                    <p class="yulan_1">请输入标题</p>
+                    <p class="yulan_2"><span></span></p>
+                    <p class="yulan_3"></p>
+                </div>
+                <div class="part_3">
+                    <span><button style="color: white;" type="submit" id="submit">修改</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $('body').on('click','#lanmu',function () {
+        var a=$(this).text();
+        $('#fenlei').val(a);
+    })
+
+
+
+    $('#submit').click(function () {
+        var b=$('#fenlei').val();
+        if (b==''){
+            alert('请选择内容分类');return false;
+        }
+    })
+
+
+
+    var   uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf:'/js/Uploader.swf',
+
+        // 文件接收服务端。
+        server:"index.php?p=show&c=admin&a=upload1",
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#my_uploader',
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+    });
+
+    uploader.on( 'uploadSuccess', function(file,response) {
+        temp_file_path=response.url;
+        $('#media_id').val(response.img);
+
+        $('#tupian').prop('src',temp_file_path);
+        $('#T').val(temp_file_path);
+
+    });
+
+
+
+</script>
+<script type="text/javascript">
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+    //预览详情
+    var myDate = new Date();
+    var time =getNowFormatDate(myDate);
+    $('.yulan_2 span').text(time);
+
+    $('.yulan').click(function(){
+        $('.under_l').animate({left:"50%"},600);
+        $('.yulanbox').show()
+        $('.part_2').hide()
+    })
+    $('.parton').click(function(){
+        $('.under_l').animate({left:"0"},600);
+        $('.yulanbox').hide()
+        $('.part_2').show()
+    })
+
+    $(".article_title").bind('input porpertychange',function(){
+        var thisTxt=$(".article_title").val();
+        $('.yulanbox .yulan_1').html(thisTxt)
+    })
+    $('.name_b span img').click(function(){
+        var src = $(this).attr('src');
+        var img = $(this);
+        if (src.indexOf('1')>-1){
+            var src = src.replace('1', '2');
+            img.attr('src',src);
+        }else{
+            var src = src.replace('2', '1');
+            img.attr('src',src);
+        }
+    })
+    $('.p_manage').click(function(){
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function(){
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function(){
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function(){
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function(){
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function(){
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function(){
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function(){
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function(){
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+    $('.part_2 p i').click(function(){
+        $(this).toggleClass('fa-check-square');
+    })
+    $('.edi_left .article_type').click(function(){
+        $('.edi_left .article_type div').slideToggle();
+    })
+    $('.article_type div p').click(function(){
+        $('.edi_left .article_type span').text($(this).text())
+    })
+</script>
+
+</body>
+</html>

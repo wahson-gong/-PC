@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>联系方式</title>
+		<link rel="stylesheet" href="public/xz/css/reset.css">
+		<link rel="stylesheet" href="public/xz/css/town.css">
+		<link rel="stylesheet" href="public/xz/css/font-awesome.css">
+	</head>
+	<body>
+		<!--头部开始-->
+		<?php include CUR_VIEW_PATH."Spublic/header.html";?>
+		<!--end-->
+		<!--内容开始-->
+		<section>
+			<p class="p_title">联系方式</p></h3>
+			<div class="row-2 clearfix">
+	          	<div class="form">
+		            <div class="title">意见建议</div>
+		            <form id="form" action="index.php?p=show&c=index&a=jianyi" method="post"  >
+
+		              <div class="form-controls">
+		                <div class="label">联系方式 </div>
+		                <input type="text" id="email" name="dinahua" placeholder="请输入您的联系方式，如个人邮箱、手机号码等">
+		              </div>
+		              <div class="form-controls">
+		                <div class="label">意见建议</div>
+		                <textarea name="jianyi" id="comment" placeholder="请输入您的反馈意见，我们将为您不断改进"></textarea>
+		              </div>
+		              <div class="form-controls">
+		                <input class="button" type="submit"  id="submit"/>
+				</div>
+		            </form>
+		            <iframe style="display: none!important;" name="form"></iframe>
+	          	</div>
+          		<div class="business">
+		            <div class="title">商业合作</div>
+		            <div class="list">
+		              <div class="item clearfix">
+		                <div class="label">商务合作邮箱</div>
+		                <div class="controls">portalmarketing@163.com</div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label">电话</div>
+		                <div class="controls">010-82558163</div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label"></div>
+		                <div class="controls"></div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label">订阅合作</div>
+		                <div class="controls">微信平台 wangyidingyue</div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label"></div>
+		                <div class="controls"></div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label">地址</div>
+		                <div class="controls">北京市海淀区西北旺东路10号院 中关村软件园二期西区7号</div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label">邮编</div>
+		                <div class="controls">100193</div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label">电话</div>
+		                <div class="controls">(+8610)-82558163</div>
+		              </div>
+		              <div class="item clearfix">
+		                <div class="label">传真</div>
+		                <div class="controls">(+8610)-82618163</div>
+		              </div>
+		            </div>
+          		</div>
+        </div>
+		</section>
+		<!--end-->
+		<!--底部开始-->
+		<footer>
+			 <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+		</footer>
+		<script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+		<!--end-->
+
+
+	</body>
+</html>

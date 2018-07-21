@@ -1,0 +1,29 @@
+<header>
+    <div class="navbar">
+        <a><img src="public/xz/img/logo.png"></a>
+        <div>
+            <?php if($_SESSION['touxiang']==''){ ?>
+            <img class="userlogo tolisde" src="public/xz/img/headimg.png">
+            <?php }else{ ?>
+            <img class="userlogo tolisde" src="<?=$_SESSION['touxiang']?>">
+            <?php }; ?>
+            <span class="username tolisde"><?=$_SESSION['mingcheng']?></span>
+            <img src="public/xz/img/iconv.png" class="tolisde" style="width: 20px;margin-right: 5px;">
+            <i class="fa fa-angle-down tolisde"></i>
+            <!-- <i class="fa fa-envelope-o tolisde"></i> -->
+            <div class="down_show">
+                <a href="index.php?p=show&c=admin&a=index">我的账户</a>
+                <a href="index.php?p=show&c=admin&a=fabu">我的发布</a>
+                <a href="index.php?p=show&c=admin&a=dylm">栏目管理</a>
+                <!--<a href="index.php?p=show&c=admin&a=fabu">我的消息</a>-->
+                <a href="index.php?p=show&c=admin&a=shouquan">授权管理</a>
+                <a href="index.php?p=show&c=admin&a=logout">退出登录</a>
+            </div>
+        </div>
+        <ul>
+            <li><a href="index.php?p=show&c=admin&a=index">首页</a></li>
+            <li><a href="index.php?p=show&c=admin&a=tou">发布信息 </a></li>
+            <!--<li><a href="index.php?p=show&c=admin&a=tou1">编辑分工</a></li>-->
+        </ul>
+    </div>
+</header>

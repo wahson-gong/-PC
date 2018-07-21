@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-我的消息</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/jqui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/date.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <div class="rightside">
+            <style>
+                .hui-xxbiaoti{font-size:16px; text-align: center; margin-top:45px;}
+                .hui-xxnei{overflow:hidden; margin-top:45px; line-height:26px; font-size:14px;}
+            </style>
+            <div class="hui-xxbiaoti"><?=$rs['xingming']?></div>
+            <div class="hui-xxbiaoti"><?=$rs['zhineng']?></div>
+            <div class="hui-xxbiaoti"><?=$rs['lianxifangshi']?></div>
+
+            <div class="hui-xxnei">
+                <p style="text-indent:26px;"><?=$rs['jigoujieshao']?></p>
+            </div>
+            <div class="hui-xxnei">
+                <p style="text-indent:26px;"><?=$rs['banshiliucheng']?></p>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $('.p_manage').click(function(){
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function(){
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function(){
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function(){
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function(){
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function(){
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function(){
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function(){
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function(){
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+</script>
+</body>
+</html>
+

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-我的消息</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/jqui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/date.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <div class="rightside">
+            <style>
+                .hui-xxbiaoti {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-top: 45px;
+                }
+
+                .hui-xxnei {
+                    overflow: hidden;
+                    margin-top: 10px;
+                    line-height: 26px;
+                    font-size: 14px;
+                }
+
+                .ly-btn-hui {
+                    margin-top: 50px;
+                }
+
+                .ly-btn-hui span {
+                    width: 80px;
+                    height: 30px;
+                    line-height: 30px;
+                    display: block;
+                    text-align: center;
+                    background: #e73e3e;
+                    color: #fff;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                .ly-layer{width: 100%;height: 100%;position: fixed;z-index: 940222;background: rgba(0,0,0,0.4);top:0;left: 0;display: none}
+                .ly-layer .ly-content{ width: 400px;height: 300px;padding: 20px; box-sizing: border-box;border-radius: 10px;position: absolute;top:50%;left: 50%;margin-top: -150px;margin-left: -200px;background: #fff;}
+                .ly-layer .ly-content textarea{width: 100%;height: 220px;resize: none;border: 1px solid #e5e5e5;padding: 5px;line-height: 20px;color: #333;font-size: 14px;box-sizing: border-box}
+                .ly-close{    position: absolute;
+                    top: -10px;
+                    right: -10px;
+                    background: #e73e3e;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    text-align: center;
+                    line-height: 26px;
+                    cursor: pointer;
+                    color: #fff;}
+                .ly-submit{
+                    width: 80px;
+                    line-height: 30px;
+                    height: 30px;
+                    border: none;
+                    background: #e73e3e;
+                    color: #fff;
+                    border-radius: 5px;
+                    text-align: center;
+                    margin: 10px auto 0;
+                    display: block;
+                }
+            </style>
+            <div class="hui-xxnei" style="display: none" id="huiId" data-id="<?=$rs['id']?>"></div>
+            <div class="hui-xxnei">主题：<?=$rs['zhuti']?></div>
+            <div class="hui-xxnei">发布人：<?=$rs['user_name']?></div>
+            <div class="hui-xxnei">联系方式：<?=$rs['user_tel']?></div>
+            <div class="hui-xxnei">分类：<?=$rs['type_name']?></div>
+            <div class="hui-xxnei">时间：<?=$rs['dtime']?></div>
+            <div class="hui-xxnei">内容：<?=$rs['neirong']?></div>
+            <?php if($rs['town_reply']!=""):?>
+            <div class="hui-xxnei">回复内容：<?=$rs['town_reply']?></div>
+            <?php endif;?>
+            <?php if($rs['dispose_rate']!=""):?>
+            <div class="hui-xxnei">用户评价：<?=$rs['dispose_rate']?></div>
+            <div class="hui-xxnei">用户评价理由：<?=$rs['rate_reason']?></div>
+            <?php endif;?>
+            <?php if($rs['town_reply']==""):?>
+            <div class="ly-btn-hui">
+                <span class="ly-huifu">回复</span>
+            </div>
+            <?php endif;?>
+        </div>
+    </div>
+
+    <div class="ly-layer">
+        <div class="ly-content">
+            <span class="ly-close">x</span>
+            <input type="hidden" id="UserId" type="text" value=""/>
+            <textarea placeholder="请输入回复内容" id="town_reply"></textarea>
+            <input type="button" id="huifu" class="ly-submit" value="保存" />
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a> | <a>联系我们</a> | &nbsp; Copyright © 2015-2018 eBeryl. All Rights Reserved. | 蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(".ly-huifu").click(function () {
+        $(".ly-layer").show();
+        var id = $("#huiId").attr("data-id");
+        $("#UserId").val(id);
+    })
+
+    $(".ly-close").click(function () {
+        $(".ly-layer").hide();
+    })
+
+    $('.p_manage').click(function () {
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function () {
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function () {
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function () {
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function () {
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function () {
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function () {
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function () {
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function () {
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+</script>
+<script type="text/javascript">
+    $("#huifu").click(function () {
+        var id = $("#UserId").val();
+        var town_reply = $("#town_reply").val()
+        $.post("index.php?p=show&c=admin&a=reply",{id:id,town_reply:town_reply},function (data) {
+            if (data.result==200){
+                alert("回复成功")
+            }else {
+                alert("回复失败")
+            }
+            location.reload();
+        },"json")
+    })
+</script>
+</body>
+</html>
+

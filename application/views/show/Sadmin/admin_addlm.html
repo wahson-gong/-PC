@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-我的发布</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/jqui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/date.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+
+    <link rel="stylesheet" href="public/layer/theme/default/layer.css">
+    <script src="public/layer/layer.js" type="text/javascript"></script>
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <form method="GET" action="index.php?p=show&c=admin&a=fabu">
+            <input type="hidden" name="id" value="<?=$id?>" id="id">
+            <div class="rightside">
+                <p>自定义栏目
+                <p>
+                    <br>
+
+                <div class="ly-h1">
+                    栏目名称：
+                    <input type="text" class="ly-lang-name" id="biaoming" placeholder="请输入栏目名称" value="<?=$biaoming?>" readonly="readonly"/>
+                    <input type="button" value="提交" id="tijiao" class="ly-submit"/>
+                </div>
+
+                <div class="ly-list">
+                    <p>选择模板：</p>
+                    <ul class="ly-li">
+                        <?php if($mobans):?>
+                        <?php foreach($mobans as $moban):?>
+                        <li class="<?=self::sellmAction($moban['mingcheng'],$biaoming)==2?'ly-cation':''?>" data-name="<?=$moban['mingcheng']?>"><img src="<?=$moban['pic']?>"/></li>
+                        <?php endforeach;?>
+                        <?php endif;?>
+                    </ul>
+                    <a class="ly-btn   <?=self::lmstatusAction($biaoming)==1?'ly-submit':''?>" data-id="1">启用</a>
+                    <a class=" ly-btn <?=self::lmstatusAction($biaoming)==2?'ly-submit':''?>" data-id="2">暂不启用</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a> | <a>联系我们</a> | &nbsp; Copyright © 2015-2018 eBeryl. All Rights Reserved. | 蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $('#1').click(function () {
+        $('form').submit()
+    })
+
+    $(".ly-li li").click(function () {
+        $(this).addClass("ly-cation").siblings().removeClass("ly-cation")
+    })
+</script>
+<script type="text/javascript">
+    $('.p_manage').click(function () {
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function () {
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function () {
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function () {
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function () {
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function () {
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function () {
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function () {
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function () {
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+</script>
+<script type="text/javascript">
+    $("#tips1").click(function () {
+        //>>获取选中的栏目
+        var arr = [];
+        var i = 0;
+        $.each($('input:checkbox'), function () {
+            if (this.checked) {
+                var moban = $(this).closest("div").find("option:selected").text();
+                arr[i] = $(this).val() + '-' + $(this).attr("taName") + '-' + moban;
+//                arr[i+'_moban'] = $(this).val()+$(this).attr("taName");
+                i++;
+            }
+        });
+        $.post("?p=show&c=admin&a=sazedylm", {lms: arr}, function (data) {
+            console.log(data)
+            alert("保存成功")
+            location.reload()
+        }, "json")
+    })
+</script>
+<script>
+
+    $(".ly-btn").click(function () {
+      $(this).addClass("ly-submit").siblings(".ly-btn").removeClass("ly-submit")
+    })
+    $("#tijiao").click(function () {
+        var id = $("#id").val();
+        var biaoming = $("#biaoming").val()
+        var moban = $(".ly-li li.ly-cation").attr("data-name");
+        var qiyong = $(".ly-btn.ly-submit").attr("data-id");
+        if (biaoming == '问政' || biaoming == '名片'){
+            layer.alert("该栏目不可修改");
+            return false;
+        }
+        if (biaoming==''){
+            alert("请输入栏目名");
+            return false;
+        }
+        if (moban==undefined){
+            alert("请选择模板");
+            return false;
+        }
+        $.post("?p=show&c=admin&a=editlm",{id:id,biaoming:biaoming,moban:moban,qiyong:qiyong},function (data) {
+            if (data.code==1){
+                alert(data.mes)
+                window.location.href='/index.php?p=show&c=admin&a=dylm';
+            }else {
+                alert(data.mes)
+            }
+        },'json')
+    })
+</script>
+</body>
+</html>

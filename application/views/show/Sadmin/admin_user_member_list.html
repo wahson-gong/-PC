@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-我的发布</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <link rel="stylesheet" href="/public/xz/css/lingdao.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/jqui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/date.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+
+    <link rel="stylesheet" href="public/layer/theme/default/layer.css">
+    <script src="public/layer/layer.js" type="text/javascript"></script>
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <style>
+            .hui-table{margin-top:35px;}
+            .hui-table table{width:100%;}
+            .hui-table table th{height:45px; background:#eee;border:1px solid #dcdcdc; font-size:16px;}
+            .hui-table table td{border:1px solid #dcdcdc; line-height:50px; font-size:14px; text-align: center;}
+            .hui-biao{width:260px;overflow: hidden;text-overflow:ellipsis; white-space: nowrap;text-indent:20px;}
+            .hui-cz a{display:inline-block; margin:0 5px;}
+            .hui-cz a:hover{color:#E73B3B;}
+        </style>
+        <div class="rightside">
+            <div class="ly-h2">用户管理</div>
+            <div class="hui-table">
+                <table>
+                    <tr>
+                        <th>编码</th>
+                        <th>用户昵称</th>
+                        <th>用户电话</th>
+                        <th>评论权限</th>
+                        <th>晒家乡发布权限</th>
+                    </tr>
+                    <?php if($userData):?>
+                    <?php foreach($userData as $user): ?>
+                    <tr>
+                        <td><?=$user['id']?></td>
+                        <td><?=$user['mingcheng']?></td>
+                        <td><?=$user['yonghuming']?></td>
+                        <td>
+                            <label>
+                                <input type="radio" name="pinglun_status_<?=$user['id']?>" field="1" thisId="<?=$user['mid']?>" value="1" <?=$user['pinglun_status']==1?'checked':''?>>启用
+                            </label>
+                            &nbsp;&nbsp;
+                            <label>
+                                <input type="radio" name="pinglun_status_<?=$user['id']?>" field="1" thisId="<?=$user['mid']?>" value="2" <?=$user['pinglun_status']==2?'checked':''?>>禁用
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" name="sjx_status_<?=$user['id']?>" field="2" thisId="<?=$user['mid']?>" value="1" <?=$user['sjx_status']==1?'checked':''?>>启用
+                            </label>
+                            &nbsp;&nbsp;
+                            <label>
+                                <input type="radio" name="sjx_status_<?=$user['id']?>" field="2" thisId="<?=$user['mid']?>" value="2" <?=$user['sjx_status']==2?'checked':''?>>禁用
+                            </label>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php endif;?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $('.p_manage').click(function(){
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function(){
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function(){
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function(){
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function(){
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function(){
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function(){
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function(){
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function(){
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+</script>
+<script>
+    $("input").click(function () {
+        var id = $(this).attr('thisId');
+        var field = $(this).attr('field');
+        var val = $(this).val();
+        $.post("?p=show&c=admin&a=memberQuanxian",{id:id,field:field,val:val},function (data) {
+            layer.alert("设置成功")
+        })
+    })
+</script>
+</body>
+</html>

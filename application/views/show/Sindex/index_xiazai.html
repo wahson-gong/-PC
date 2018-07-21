@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>下载</title>
+		<link rel="stylesheet" href="public/xz/css/reset.css">
+		<link rel="stylesheet" href="public/xz/css/town.css">
+		<link rel="stylesheet" href="public/xz/css/font-awesome.css">
+	</head>
+	<body>
+		<!--头部开始-->
+		<?php include CUR_VIEW_PATH."Spublic/header.html";?>
+		<!--end-->
+		<!--内容开始-->
+		<section>
+			<p class="p_title">下载掌上乡镇APP</h3>
+			<div class="p_down">
+				<img class="andr" src="public/xz/img/codema.jpg">
+				<img class="ios" src="public/xz/img/codema.jpg">
+				<p>扫一扫下载</p>
+				<span class="chooseon"><i class="fa fa-apple"></i>iPhone版</span>
+				<span><i class="fa fa-android"></i>Android版</span>
+			</div>
+		</section>
+		<!--end-->
+		<!--底部开始-->
+		<footer>
+			 <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+		</footer>
+		<!--end-->
+		<script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('.p_down span').click(function(){
+				$('.p_down span').removeClass('chooseon');
+				$(this).addClass('chooseon');
+				if ($(this).index()==3) {
+					$('.andr').hide();
+					$('.ios').show();
+				}else{
+					$('.andr').show();
+					$('.ios').hide();
+				}
+			})
+		</script>
+	</body>
+</html>

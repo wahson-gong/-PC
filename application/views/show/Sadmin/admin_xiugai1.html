@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-发布</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="/public/xz/css/lingdao.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <link href="public/xz/ueditor/themes/default/css/ueditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="public/xz/ueditor/third-party/jquery-1.10.2.js"></script>
+    <script type="text/javascript" charset="utf-8" src="public/xz/ueditor_p/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="public/xz/ueditor_p/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="public/xz/ueditor_p/ueditor.parse.js"></script>
+    <script type="text/javascript" charset="utf-8" src="public/xz/ueditor_p/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="public/js/webuploader.js"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+
+    <link rel="stylesheet" href="public/layer/theme/default/layer.css">
+    <script src="public/layer/layer.js" type="text/javascript"></script>
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <style>
+            .user-li {
+                display: none;
+            }
+        </style>
+        <div class="rightside">
+            <div class="ly-h2">领导管理</div>
+            <form action="?p=show&c=admin&a=xiugaild" id="myform" method="post">
+                <ul class="ly-ling-dao">
+                    <input type="hidden" name="id" value="<?=$id?>">
+                    <input type="hidden" name="yuming" id="yuming" value="<?=$yuming?>">
+                    <li>
+                        <b>姓名：</b>
+                        <input type="text" name="xingming" class="ly-input" value="<?=$rs!=null?$rs['xingming']:''  ?>"/>
+                    </li>
+                    <li>
+                        <b>职能：</b>
+                        <input type="text" name="zhineng" class="ly-input" value="<?=$rs!=null?$rs['zhineng']:''  ?>"/>
+                    </li>
+                    <li>
+                        <b>头像：</b>
+                        <input type="text" name="link" id="link" class="ly-input" value="<?=$rs!=null?$rs['link']:'' ?>"/>
+                        <div class="ly-add"><input name="bannerpic" id="lyFile" type="file" /><a href="javascript:;">上传图片</a></div>
+                    </li>
+                    <li>
+                        <b>联系方式：</b>
+                        <input type="text" name="lianxifangshi" maxlength="11" class="ly-input" value="<?=$rs!=null?$rs['lianxifangshi']:''  ?>"/>
+                    </li>
+                    <li>
+                        <b>机构介绍：</b>
+                        <textarea name="jigoujieshao" class="ly-textarea"><?=$rs!=null?$rs['jigoujieshao']:''  ?></textarea>
+                    </li>
+                    <li>
+                        <b>办事流程：</b>
+                        <textarea name="banshiliucheng" class="ly-textarea"><?=$rs!=null?$rs['banshiliucheng']:''  ?></textarea>
+                    </li>
+                    <li>
+                        <input type="button" id="save" class="ly-submit" value="保存" />
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $('body').on('click','#lanmu',function () {
+        var a=$(this).text();
+        $('#fenlei').val(a);
+    })
+
+
+
+
+
+    var   uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf:'/js/Uploader.swf',
+
+        // 文件接收服务端。
+        server:"index.php?p=show&c=admin&a=upload1",
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#my_uploader',
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+    });
+
+    uploader.on( 'uploadSuccess', function(file,response) {
+        temp_file_path=response.url;
+        $('#touxiang').val(temp_file_path);
+        $('#tupian').attr('src',temp_file_path);
+    });
+
+
+
+</script>
+<script type="text/javascript">
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+    //预览详情
+    var myDate = new Date();
+    var time =getNowFormatDate(myDate);
+    $('.yulan_2 span').text(time);
+
+    $('.yulan').click(function(){
+        $('.under_l').animate({left:"50%"},600);
+        $('.yulanbox').show()
+        $('.part_2').hide()
+    })
+    $('.parton').click(function(){
+        $('.under_l').animate({left:"0"},600);
+        $('.yulanbox').hide()
+        $('.part_2').show()
+    })
+
+    $(".article_title").bind('input porpertychange',function(){
+        var thisTxt=$(".article_title").val();
+        $('.yulanbox .yulan_1').html(thisTxt)
+    })
+    $('.name_b span img').click(function(){
+        var src = $(this).attr('src');
+        var img = $(this);
+        if (src.indexOf('1')>-1){
+            var src = src.replace('1', '2');
+            img.attr('src',src);
+        }else{
+            var src = src.replace('2', '1');
+            img.attr('src',src);
+        }
+    })
+    $('.p_manage').click(function(){
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function(){
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function(){
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function(){
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function(){
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function(){
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function(){
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function(){
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function(){
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+    $('.part_2 p i').click(function(){
+        $(this).toggleClass('fa-check-square');
+    })
+    $('.edi_left .article_type').click(function(){
+        $('.edi_left .article_type div').slideToggle();
+    })
+    $('.article_type div p').click(function(){
+        $('.edi_left .article_type span').text($(this).text())
+    })
+    $('input[type="file"]').on('change', function () {
+        var reader=new FileReader();
+        reader.onload=function(e){
+            console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
+            $("#lyImg").attr("src",reader.result)
+            $.post("?p=show&c=admin&a=savePic",{data:reader.result},function (data) {
+                if (data.code==200){
+                    $("#link").val('http://'+$("#yuming").val()+'/'+data.path)
+                    alert(data.msg)
+                }else {
+                    alert(data.msg)
+                }
+            },'json')
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $("#save").click(function () {
+        var xingming = $('input[name="xingming"]').val()
+        var zhineng = $('input[name="zhineng"]').val()
+        var link = $('input[name="link"]').val()
+        var lianxifangshi = $('input[name="lianxifangshi"]').val()
+        if (xingming==''){
+            layer.alert('姓名不能为空');
+            return false;
+        }
+        if (zhineng==''){
+            layer.alert('职能不能为空');
+            return false;
+        }
+        if (link==''){
+            layer.alert('请设置头像');
+            return false;
+        }
+        if (lianxifangshi==''){
+            layer.alert('请设置联系方式');
+            return false;
+        }
+        if (!isPoneAvailable(lianxifangshi)){
+            layer.alert('电话号码不正确');
+            return false;
+        }
+//        return false;
+        $("#myform").submit();
+    })
+    function isPoneAvailable(str) {
+        var myreg=/^[1][0-9][0-9]{9}$/;
+        if (!myreg.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+</body>
+</html>

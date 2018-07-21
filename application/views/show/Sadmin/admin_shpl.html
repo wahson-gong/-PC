@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心-我的发布</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/date.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/jqui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/xz/js/date.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+<!--end-->
+<!--内容开始-->
+<section>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <div class="rightside">
+            
+            <div class="rightside" style="width: 100%">
+                <div class="ly-h2">
+                    <div class="ly-int">
+                        <input name="tj" type="text" placeholder="请输入评论用户" id="nickname" value="<?=isset($_GET['nickname'])?$_GET['nickname']:'' ?>">
+                        <input type="button" id="search" value="" class="ly-submit"/>
+                    </div>
+                </div>
+                <div class="hui-table" style="margin-top: 0px;">
+                    <table>
+                        <tr>
+                            <!-- <td>编号</td> -->
+                            <td>选择</td>
+                            <td>内容</td>
+                            <td>分类</td>
+                            <td>评论用户</td>
+                            <td>操作</td>
+                        </tr>
+                        <?php foreach($msg as $v): ?>
+                        <tr>
+                            <!-- <td><?=$v['id']?></td> -->
+                            <td><input type="checkbox" name="isdel[]" class="delcheckbox" value="<?=$v['id']?>"></td>
+                            <td><?=$v['neirong']?></td>
+                            <td><?=$v['fenlei']?></td>
+                            <td><?=$v['uname']?></td>
+                            <td><a href="index.php?p=show&c=admin&a=dl&id=<?=$v['id']?>">删除</a></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                    <br>
+                    <div>
+                        <div class="ly-foot-left">
+                            <label><span> <input type="checkbox" value="1" id="isdelall"> 全选</span></label>
+                            <span class="ly-delete"><i class="fa fa-trash-o fa-lg"></i>删除</span>
+                        </div>
+                        <div class="this_page">
+                            <a href="index.php?p=show&c=admin&a=sh&nickname=<?php echo $nickname ?>&page=<?=$min?>">首页</a>
+                            <?php for($i=$min;$i<=$max;$i++):  ?>
+                            <a href="index.php?p=show&c=admin&a=sh&nickname=<?php echo $nickname ?>&page=<?=$i?>"><?=$i?></a>
+                            <?php endfor;  ?>
+                            <a href="index.php?p=show&c=admin&a=sh&nickname=<?php echo $nickname ?>&page=<?=$max?>">尾页</a>
+                            <input type="text" name="page" id="page" style="width: 23px;height: 23px;border:1px solid #E5E5E5;border-radius: 3px;" value="<?=$page?>"> <input type="button" id="tips" value="跳转" style="display: inline-block;padding: 5px 10px;line-height: 15px;border: 1px solid #E5E5E5;border-radius: 3px;margin-right: 5px;font-size: 12px;">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a>   |   <a>联系我们</a>   | &nbsp;  Copyright © 2015-2018 eBeryl. All Rights Reserved.   |   蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $('.p_manage').click(function(){
+        $('.hidediv').slideToggle();
+    })
+    $('.allstate').click(function(){
+        $('.column_tit .type1').slideToggle();
+    })
+    $('.allplatform').click(function(){
+        $('.column_tit .type2').slideToggle();
+    })
+    $('.alltype').click(function(){
+        $('.column_tit .type3').slideToggle();
+    })
+    $('.column_tit .type1 p').click(function(){
+        $('.column_tit .type1').slideToggle();
+        $('.allstate span').html($(this).html())
+    })
+    $('.column_tit .type2 p').click(function(){
+        $('.column_tit .type2').slideToggle();
+        $('.allplatform span').html($(this).html())
+    })
+    $('.column_tit .type3 p').click(function(){
+        $('.column_tit .type3').slideToggle();
+        $('.alltype span').html($(this).html())
+    })
+    $('.wrapper_list li .fa-square-o').click(function(){
+        $(this).toggleClass('fa-check-square')
+    })
+    $('.chooseall').click(function(){
+        $('.chooseall .fa-square-o').toggleClass('fa-check-square');
+        $('.wrapper_list li .fa-square-o').toggleClass('fa-check-square')
+    })
+</script>
+<!--页面跳转-->
+<script type="text/javascript">
+    function isInteger(obj) {
+        return parseInt(obj, 10) === obj
+    }
+    $("#tips").click(function () {
+        //获取输入的页码
+        var page = $("#page").val();
+        window.location.href="?p=show&c=admin&a=sh&nickname=<?php echo $nickname ?>&page="+page;
+    })
+</script>
+<!--搜索-->
+<script>
+    $("#search").click(function () {
+        var nickname = $("#nickname").val();
+        var str = "?p=show&c=admin&a=sh";
+        if (nickname!=''){
+            str += "&nickname="+nickname;
+        }
+        window.location.href = str
+    });
+    $('#isdelall').bind('click',function(){
+        if (this.checked == true) { 
+            $(".delcheckbox").each(function() { 
+                this.checked = true; 
+            }); 
+        }else{ 
+            $(".delcheckbox").each(function() { 
+                this.checked = false; 
+            }); 
+        }
+    })
+</script>
+</body>
+</html>

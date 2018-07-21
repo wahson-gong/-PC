@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心</title>
+    <link rel="stylesheet" href="public/xz/css/reset.css">
+    <link rel="stylesheet" href="public/xz/css/town.css">
+    <link rel="stylesheet" href="public/xz/css/font-awesome.css">
+    <script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="public/layer1/layer.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="public/xz/css/public.css">
+</head>
+<body style="background: #f7f7f7;">
+<!--头部开始-->
+<?php include CUR_VIEW_PATH."Spublic/header1.html";?>
+
+<!--end-->
+<!--内容开始-->
+<section>
+    <style>
+        .user-li {
+            display: none;
+        }
+    </style>
+    <div class="part">
+        <!--左侧-->
+        <div class="leftside">
+            <p class="l_tit">个人中心</p>
+            <?php include CUR_VIEW_PATH."Spublic/session.html";?>
+        </div>
+        <!--右侧-->
+        <div class="rightside">
+            <input type="hidden" name="yuming" id="yuming" value="<?=$yuming?>">
+            <p>我的账户</p>
+            <div class="user_box">
+                <div class="user_left fl">
+                    <img class="ly-img" src="<?=$rs['touxiang']?>">
+                    <p class="user_name"><img src="public/xz/img/vipicon.png"><?=$rs['xingming']?></p>
+                    <a href="index.php?p=show&c=admin&a=change"><p class="change_pwd">修改密码</p></a>
+                </div>
+                <div class="user_right">
+                    <div>
+                        <p>手机：<input value="<?=$rs['yonghuming']?>">
+                        <p id="nicheng" data-src="<?=$rs['touxiang']?>" data-name="<?=$rs['xingming']?>"
+                           data-tel="<?=$rs['yonghuming']?>" data-yuming="<?=$yuming?>">昵称：<input
+                                value="<?=$rs['xingming']?>"><span>修改昵称/手机号/头像</span></p>
+                        <p>地域：<input value="<?=$rs['xiangzhen']?>"></p>
+                    </div>
+                    <div class="user_article">
+                        共发布文章<span><?=$num?></span>篇
+                        <button><a style="color: white" href="index.php?p=show&c=admin&a=tou">我要发布</a></button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="user_accredit">
+                <p>关联账号</p>
+                <ul>
+                    <!--<li class="accrediton">授权公众号</li>-->
+                    <li class="accrediton">授权公众号</li>
+                    <li>授权新浪微博</li>
+                    <li>授权头条号</li>
+                    <li>授权企鹅号</li>
+                </ul>
+                <div class="user-add">
+                    <!---->
+                    <div class="user-li">
+                        <a href="index.php?p=show&c=admin&a=renzheng&rz=weixin">
+                            <div class="accredit_box">
+                                <p>为了使未认证的公众号享受和认证号一样的服务，您需要在我们平台进行账号登录授权</p>
+                                <div class="ly-accredit_box">
+                                    <i class="fa fa-plus"></i>
+                                    <p>新增绑定</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!---->
+                    <div class="user-li">
+                        <a href="index.php?p=show&c=admin&a=renzheng&rz=weibo">
+                            <div class="accredit_box">
+                                <p>为了使未认证的公众号享受和认证号一样的服务，您需要在我们平台进行账号登录授权</p>
+                                <div class="ly-accredit_box">
+                                    <i class="fa fa-plus"></i>
+                                    <p>新增绑定</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!---->
+                    <div class="user-li">
+                        <a href="index.php?p=show&c=admin&a=renzheng&rz=toutiao">
+                            <div class="accredit_box">
+                                <p>为了使未认证的公众号享受和认证号一样的服务，您需要在我们平台进行账号登录授权</p>
+                                <div class="ly-accredit_box">
+                                    <i class="fa fa-plus"></i>
+                                    <p>新增绑定</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="user-li">
+                        <a href="index.php?p=show&c=admin&a=renzheng&rz=QQ">
+                            <div class="accredit_box">
+                                <p>为了使未认证的公众号享受和认证号一样的服务，您需要在我们平台进行账号登录授权</p>
+                                <div class="ly-accredit_box">
+                                    <i class="fa fa-plus"></i>
+                                    <p>新增绑定</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!--end-->
+<!--底部开始-->
+<footer>
+    <a>服务协议</a> | <a>联系我们</a> | &nbsp; Copyright © 2015-2018 eBeryl. All Rights Reserved. | 蜀ICP备15008968号-2
+</footer>
+<!--end-->
+<script src="public/xz/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="public/xz/js/town.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $('.p_manage').click(function () {
+        $('.hidediv').slideToggle();
+    })
+    $(".user-li").eq(0).show()
+    $('.user_accredit li').click(function () {
+        $('.user_accredit li').removeClass('accrediton');
+        $(this).addClass('accrediton')
+        $(".user-li").eq($(this).index()).show().siblings().hide();
+    })
+
+    $('#nicheng').click(function () {
+        var src = $(this).attr("data-src");
+        var name = $(this).attr("data-name");
+        var tel = $(this).attr("data-tel");
+        layer.open({
+            type: 1,
+            title: false, //不显示标题
+            skin: 'layui-edit-intro', //加上边框
+            closeBtn: 0, //不显示关闭按钮
+            shadeClose: true, //开启遮罩关闭
+            area: ['360px', '360px'], //宽高
+            content: '<div class="ly-edit-intro">'
+            + '<li><img src="' + src + '" id="lyImg" /><span>更换头像</span><input type="file" id="lyFile" /></li>'
+            + '<li><input type="hidden" name="link" id="link" value="'+src+'"></li>'
+            + '<li><b>手机号：</b><input type="text" maxlength="11" id="updTel" value="' + tel + '"/></li>'
+            + '<li><b>昵称：</b><input type="text" id="updName" value="' + name + '"/></li>'
+            + '</div>',
+            btn: ['保存'],
+            yes:function (pass,index) {
+                var link = $("#link").val()
+                var updTel = $("#updTel").val()
+                var updName = $("#updName").val()
+                if (link==''){
+                    layer.alert('请设置头像');
+                    return false;
+                }
+                if (updTel==''){
+                    layer.alert('电话不能为空');
+                    return false;
+                }
+                if (!isPoneAvailable(updTel)){
+                    layer.alert('电话号码不正确');
+                    return false;
+                }
+                if (updName==''){
+                    layer.alert('昵称不能为空');
+                    return false;
+                }
+//                console.log(link)
+//                console.log(updTel)
+//                console.log(updName)
+                $.post('index.php?p=show&c=admin&a=gg',{link:link,updTel:updTel,updName:updName},function (msg) {
+                    if (msg == '1') {
+                        layer.msg('修改成功');
+                        location.reload();
+                    } else {
+                        layer.msg('系统繁忙请稍后再试');
+                        layer.close(pass);
+                    }
+                })
+            }
+        }, function (pass, index) {
+            layer.close(index);
+            var nicheng = pass;
+            console.log(pass);
+            $.get('index.php?p=show&c=admin&a=gg', {nicheng: nicheng}, function (msg) {
+                if (msg == '1') {
+                    layer.msg('修改成功');
+                } else {
+                    layer.msg('系统繁忙请稍后再试');
+                }
+            })
+        });
+        $('input[type="file"]').on('change', function () {
+//            var file = e.target.files[0];
+//            var reader = new FileReader();
+//            reader.readAsDataURL(file); // 读出 base64
+//            reader.onloadend = function () {
+//                var flas = reader.result;
+//                console.log(flas + "file" + reader.result);
+//            };
+            var reader=new FileReader();
+            reader.onload=function(e){
+                console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
+                $("#lyImg").attr("src",reader.result)
+                $.post("?p=show&c=admin&a=savePic",{data:reader.result},function (data) {
+                    if (data.code==200){
+                        $("#link").val('http://'+$("#yuming").val()+'/'+data.path)
+                        layer.alert(data.msg)
+                    }else {
+                        layer.alert(data.msg)
+                    }
+                },'json')
+            }
+            reader.readAsDataURL(this.files[0])
+        })
+    })
+    function isPoneAvailable(str) {
+        var myreg=/^[1][0-9][0-9]{9}$/;
+        if (!myreg.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+</script>
+<script>
+
+</script>
+</body>
+</html>

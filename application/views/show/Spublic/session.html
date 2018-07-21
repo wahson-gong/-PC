@@ -1,0 +1,30 @@
+<ul class="ly-nav-menu">
+    <li data-name="index"><a href="index.php?p=show&c=admin&a=index"><i class="fa fa-user-o"></i>我的账户</a></li>
+    <li data-name="fabu"><a href="index.php?p=show&c=admin&a=fabu"><i class="fa fa-volume-up"></i>我的发布</a></li>
+    <li data-name="ld"><a href="index.php?p=show&c=admin&a=ld"><i class="fa fa-paper-plane-o"></i>办事机构</a></li>
+    <li data-name="sh"><a href="index.php?p=show&c=admin&a=sh"><i class="fa fa-list"></i>评论区</a></li>
+    <li data-name="dylm"><a href="index.php?p=show&c=admin&a=dylm"><i class="fa fa-quora"></i>栏目管理</a></li>
+    <!--<li><a><i class="fa fa-volume-up"></i>我的消息</a></li>-->
+    <li data-name="shouquan"><a href="index.php?p=show&c=admin&a=shouquan"><i class="fa fa-user-plus"></i>授权管理</a></li>
+    <li data-name="banner"><a href="index.php?p=show&c=admin&a=banner"><i class="fa fa-adjust"></i>广告位</a></li>
+    <li data-name="userMember"><a href="index.php?p=show&c=admin&a=userMember"><i class="fa fa-address-card"></i>用户管理</a></li>
+    <li data-name="card"><a href="index.php?p=show&c=admin&a=card"><i class="fa fa-free-code-camp"></i>乡镇名片</a></li>
+    <li data-name="yjfk"><a href="index.php?p=show&c=admin&a=yjfk"><i class="fa fa-train"></i>意见收集</a></li>
+</ul>
+
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    var nameId = getQueryString("a");
+    $(".ly-nav-menu li").each(function () {
+        var a = $(this).attr("data-name");
+        if (nameId == a) {
+            $(this).addClass("ly-cation");
+        }
+    })
+</script>
